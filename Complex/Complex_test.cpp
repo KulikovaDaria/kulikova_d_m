@@ -26,13 +26,13 @@ int main()
 	testParse("{8.9, 9}");
 	testParse("{8.9,9");
 	cout << endl;
-	cout << "Complex() = " << Complex() << "; Complex(8.9) = " <<
-		Complex(8.9) << "; Complex(8.9, -9.1) = " << Complex(8.9, -9.1) << endl;
+	cout << "Complex() = " << Complex() << ";		Complex(8.9) = " <<
+		Complex(8.9) << ";		Complex(8.9, -9.1) = " << Complex(8.9, -9.1) << endl;
 	Complex a(-8.9, 9.1);
 	Complex b(-8.9, 9.1);
 	Complex c(-8.9, 5.2);
-	cout << a << "==" << b << " -> " << (a == b) << ";  " << a << "==" << c << " -> " << (a == c) << endl;
-	cout << a << "!=" << b << " -> " << (a != b) << ";  " << a << "!=" << c << " -> " << (a != c) << endl;
+	cout << a << "==" << b << " -> " << (a == b) << ";		" << a << "==" << c << " -> " << (a == c) << endl;
+	cout << a << "!=" << b << " -> " << (a != b) << ";		" << a << "!=" << c << " -> " << (a != c) << endl;
 	cout << endl;
 	a = Complex(1.0, 1.1);
 	b = Complex(1.2, -2.2);
