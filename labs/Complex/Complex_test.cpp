@@ -71,8 +71,6 @@ int main()
 	cout << "64 / " << a << " = " << (64 / a) << endl;
 	cout << endl;
 
-
-	cout << endl;
 	system("pause");
 	return 0;
 }
