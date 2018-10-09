@@ -1,4 +1,0 @@
-D:/Daria/kulikova_d_m/build/CMakeFiles/ALL_BUILD.dir
-D:/Daria/kulikova_d_m/build/CMakeFiles/ZERO_CHECK.dir
-D:/Daria/kulikova_d_m/build/labs/Complex/CMakeFiles/Complex.dir
-D:/Daria/kulikova_d_m/build/labs/Rational/CMakeFiles/Rational.dir

@@ -1,2 +1,3 @@
-add_subdirectory(Complex)
-add_subdirectory(Rational)
+add_subdirectory(complex)
+add_subdirectory(rational)
+add_subdirectory(dynamic_array)

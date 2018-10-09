@@ -1,4 +1,4 @@
-#include "Complex.h"
+#include "complex.h"
 #include <iostream>
 
 Complex::Complex(const double real)

@@ -1,2 +1,2 @@
-add_executable(Rational Rational.cpp rational.h rational_test.cpp)
-set_property(TARGET Rational PROPERTY CXX_STANDARD 14)
+add_executable(rational rational.cpp rational.h rational_test.cpp)
+set_property(TARGET rational PROPERTY CXX_STANDARD 14)
