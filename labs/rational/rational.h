@@ -33,7 +33,7 @@ private:
 	int den{ 1 };
 
 	static const char separator{ '/' };
-}
+};
 
 int GCD(int a, int b);
 Rational operator+(const Rational& lhs, const Rational& rhs);
