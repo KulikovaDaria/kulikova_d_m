@@ -24,7 +24,26 @@ int main()
 	for (int i = 0; i < c.size(); ++i)
 		cout << c[i] << ' ';
 	cout << "}; c.size() = " << c.size() << endl;
-	cout << "c[1] = " << c[1] << endl;
+	for (int i = 0; i < c.size(); ++i)
+	{
+		++c[i];
+	}
+	cout << "c = { ";
+	for (int i = 0; i < c.size(); ++i)
+		cout << c[i] << ' ';
+	cout << "}" << endl;
+	cout << "a == b -> " << (a == b) << "; a == c -> " << (a == c) << endl;
+	cout << "a != b -> " << (a != b) << "; a != c -> " << (a != c) << endl;
+	c.push_back(10);
+	cout << "c.push_back(10) -> c = { ";
+	for (int i = 0; i < c.size(); ++i)
+		cout << c[i] << ' ';
+	cout << "}" << endl;
+	c.pop_back();
+	cout << "c.pop_back() -> c = { ";
+	for (int i = 0; i < c.size(); ++i)
+		cout << c[i] << ' ';
+	cout << "}" << endl;
 
 	return 0;
 }
