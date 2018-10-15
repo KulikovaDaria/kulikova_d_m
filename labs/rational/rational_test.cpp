@@ -53,7 +53,5 @@ int main()
 	cout << a << " / " << b << " = " << (a / b) << ";	" << a << " / -5 = " << (a / -5) << ";		" << "-5 / " << a << " = " << (-5 / a) << endl;
 	cout << endl;
 	
-
-	system("pause");
 	return 0;
 }

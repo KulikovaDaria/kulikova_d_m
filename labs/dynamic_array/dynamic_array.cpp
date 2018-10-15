@@ -20,9 +20,9 @@ DynamicArray::DynamicArray(const DynamicArray& obj)
 
 DynamicArray::~DynamicArray()
 {
-	delete[] data_;
 	size_ = 0;
 	data_ = nullptr;
+	delete[] data_;
 }
 
 DynamicArray& DynamicArray::operator=(const DynamicArray& obj)
