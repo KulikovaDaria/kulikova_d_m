@@ -49,17 +49,6 @@ bool MatrixAnA::operator==(const MatrixAnA& obj) const
 	if ((size1_ == obj.size1_) && (size2_ == obj.size2_))
 	{
 		ans = true;
-		/*for (int i = 0 * size2_; i < size1_*size2_; i += size2_)
-		{
-			for (int j = 0 + i; j < size2_ + i; ++j)
-			{
-				if (*(data_ + j) != *(obj.data_ + j))
-				{
-					ans = false;
-					break;
-				}
-			}
-		}*/
 		for (int i = 0; i < size1_; ++i)
 		{
 			for (int j = 0; j < size2_; ++j)
@@ -77,14 +66,6 @@ bool MatrixAnA::operator==(const MatrixAnA& obj) const
 
 void MatrixAnA::add(const MatrixAnA& obj, const int i1, const int i2, const int j1, const int j2)
 {
-	/*for (int i = i1*size2_; i < i2*size2_; i+=size2_)
-	{
-		for (int j = j1+i; j < j2+i; ++j)
-		{
-			*(data_ + j) = *(obj.data_ + j);
-		}
-	}*/
-
 	for (int i = i1; i < i2; ++i)
 	{
 		for (int j = j1; j < j2; ++j)
