@@ -1,13 +1,24 @@
 #include "rational.h"
+#include <exception>
+#include <stdexcept>
 #include <iostream>
 #include <sstream>
 
 int main()
 {
 	using namespace std;	
-
+	try { 
+		Rational z(0, 0);
+		cout << "Rational " << z << " -> ";
+		throw invalid_argument("Denominator can't be zero");
+	} 
+  catch (const invalid_argument& except) {
+		cout << except.what() << endl;
+	}
+	cout << endl;
 	cout << "Rational() = " << Rational() << ";		Rational(5) = " << Rational(2) << endl;
-	cout << "Rational(2, -8) = " << Rational(2, -8) << ";		Rational(8, 2) = " << Rational(8, 2) << endl;
+	cout << "Rational(8, 6) = " << Rational(8, 6) << ";		Rational(8, -6) = " << Rational(8, -6) 
+	     << ";		Rational(-8, 6) = " << Rational(-8, 6) << ";		Rational(-8, -2) = " << Rational(-8, -6) << endl;
 	cout << endl;
 	Rational a(1, 4);
 	Rational b(1, 4);

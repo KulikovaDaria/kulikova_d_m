@@ -1,8 +1,9 @@
 #ifndef MATRIX_ANA_H
 #define MATRIX_ANA_H
 
-class MatrixAnA
-{
+#include <iosfwd>
+
+class MatrixAnA {
 public:
 	MatrixAnA();
 	MatrixAnA(const int size1, const int size2);
@@ -10,10 +11,11 @@ public:
 	~MatrixAnA();
 	MatrixAnA& operator=(const MatrixAnA& obj);
 	bool operator==(const MatrixAnA& obj) const;
-	bool operator!=(const MatrixAnA& obj) const { return !operator==(obj); };
-
+	bool operator!=(const MatrixAnA& obj) const { return !operator==(obj); }
+	int& element(const int i, const int j);
+	void resize(const int iNew, const int jNew);
 private:
-	void add(const MatrixAnA& obj, const int i1, const int i2, const int j1, const int j2);
+	void copy(const MatrixAnA& obj, const int i1, const int i2, const int j1, const int j2);
 	int size1_{ 0 };
 	int size2_{ 0 };
 	int* data_{ nullptr };

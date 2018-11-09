@@ -7,6 +7,8 @@ int main()
 {
 	using namespace std;
 
+	DynamicArray a1;
+	cout << "DynamicArray a1 -> a1.size() = " << a1.size() << endl;
 	DynamicArray a(3);
 	cout << "DynamicArray a(3) -> a.size() = " << a.size() << endl;
 	a[0] = 1; a[1] = 2; a[2] = 3;
@@ -44,6 +46,8 @@ int main()
 	for (int i = 0; i < c.size(); ++i)
 		cout << c[i] << ' ';
 	cout << "}" << endl;
+	c.resize(10);
+	cout << "c.resize(10) -> c.size = " << c.size() << endl;
 
 	return 0;
 }
