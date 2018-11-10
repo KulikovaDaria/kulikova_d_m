@@ -29,24 +29,30 @@ Complex& Complex::operator+=(const Complex& rhs) {
 
 
 
+Complex Complex::operator++(int) {
+  Complex tmp(*this);
+  ++(*this);
+  return tmp;
+}
+
+
+
 Complex operator+(const Complex& lhs, const Complex& rhs) {
-	Complex sum(lhs);
-	sum += rhs;
-	return sum;
+	Complex res(lhs);
+	res += rhs;
+	return res;
 }
 
 
 
 Complex operator+(const Complex& lhs, const double rhs) {
-	Complex sum(lhs + Complex(rhs));
-	return sum;
+	return lhs + Complex(rhs);
 }
 
 
 
 Complex operator+(const double lhs, const Complex& rhs) {
-	Complex sum(Complex(lhs) + rhs);
-	return sum;
+	return Complex(lhs) + rhs;
 }
 
 
@@ -59,108 +65,110 @@ Complex& Complex::operator-=(const Complex& rhs) {
 
 
 
+Complex Complex::operator--(int) {
+  Complex tmp(*this);
+  --(*this);
+  return tmp;
+}
+
+
+
 Complex operator-(const Complex& lhs, const Complex& rhs) {
-	Complex sum(lhs);
-	sum -= rhs;
-	return sum;
+	Complex res(lhs);
+  res -= rhs;
+	return res;
 }
 
 
 
 Complex operator-(const Complex& lhs, const double rhs) {
-	Complex sum(lhs - Complex(rhs));
-	return sum;
+	return lhs - Complex(rhs);
 }
 
 
 
 Complex operator-(const double lhs, const Complex& rhs) {
-	Complex sum(Complex(lhs) - rhs);
-	return sum;
+	return Complex(lhs) - rhs;
 }
 
 
 
 Complex& Complex::operator*=(const Complex& rhs) {
-	Complex sum;
-	sum.re = re * rhs.re - im * rhs.im;
-	sum.im = re * rhs.im + rhs.re * im;
-	*this = sum;
+	Complex res;
+  res.re = re * rhs.re - im * rhs.im;
+  res.im = re * rhs.im + rhs.re * im;
+	*this = res;
 	return *this;
 }
 
 
 
 Complex operator*(const Complex& lhs, const Complex& rhs) {
-	Complex sum(lhs);
-	sum *= rhs;
-	return sum;
+	Complex res(lhs);
+  res *= rhs;
+	return res;
 }
 
 
 
 Complex operator*(const Complex& lhs, const double rhs) {
-	Complex sum(lhs * Complex(rhs));
-	return sum;
+	return lhs * Complex(rhs);
 }
 
 
 
 Complex operator*(const double lhs, const Complex& rhs) {
-	Complex sum(Complex(lhs) * rhs);
-	return sum;
+	return Complex(lhs) * rhs;
 }
 
 
 
 Complex& Complex::operator/=(const Complex& rhs) {
-	Complex sum;
-	sum.re = (re * rhs.re + im * rhs.im) / (rhs.re * rhs.re + rhs.im * rhs.im);
-	sum.im = (rhs.re * im - re * rhs.im) / (rhs.re * rhs.re + rhs.im * rhs.im);
-	*this = sum;
+	Complex res;
+	res.re = (re * rhs.re + im * rhs.im) / (rhs.re * rhs.re + rhs.im * rhs.im);
+	res.im = (rhs.re * im - re * rhs.im) / (rhs.re * rhs.re + rhs.im * rhs.im);
+	*this = res;
 	return *this;
 }
 
 
 
 Complex operator/(const Complex& lhs, const Complex& rhs) {
-	Complex sum(lhs);
-	sum /= rhs;
-	return sum;
+	Complex res(lhs);
+	res /= rhs;
+	return res;
 }
 
 
 
 Complex operator/(const Complex& lhs, const double rhs) {
-	Complex sum(lhs / Complex(rhs));
-	return sum;
+	return lhs / Complex(rhs);
 }
 
 
 
 Complex operator/(const double lhs, const Complex& rhs) {
-	Complex sum(Complex(lhs) / rhs);
-	return sum;
+	return Complex(lhs) / rhs;
 }
 
 
 
-std::ostream& Complex::writeTo(std::ostream& ostrm) const {
-	ostrm << leftBrace << re << separator << im << rightBrace;
+std::ostream& Complex::WriteTo(std::ostream& ostrm) const {
+	ostrm << kLeftBrace << re << kSeparator << im << kRightBrace;
 	return ostrm;
 }
 
 
 
-std::istream& Complex::readFrom(std::istream& istrm) {
-	char leftBrace(0);
+std::istream& Complex::ReadFrom(std::istream& istrm) {
+	char left_brace(0);
 	double real(0.0);
 	char comma(0);
 	double imaginary(0.0);
-	char rightBrace(0);
-	istrm >> leftBrace >> real >> comma >> imaginary >> rightBrace;
+	char right_brace(0);
+	istrm >> left_brace >> real >> comma >> imaginary >> right_brace;
 	if (istrm.good()) {
-		if ((Complex::leftBrace == leftBrace) && (Complex::separator == comma) && (Complex::rightBrace == rightBrace)) {
+		if ((Complex::kLeftBrace == left_brace) && (Complex::kSeparator == comma) && (Complex::kRightBrace == right_brace)) {
 			re = real;
 			im = imaginary;
 		}

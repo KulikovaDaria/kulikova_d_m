@@ -1,73 +1,87 @@
 #include "complex.h"
+
 #include <iostream>
 #include <sstream>
 
-bool testParse(const std::string& str) {
-	using namespace std;
-	istringstream istrm(str);
-	Complex z;
-	istrm >> z;
-	if (istrm.good()) {
-		cout << "Read success: " << str << " -> " << z << endl;
-	}
-	else {
-		cout << "Read error: " << str << " -> " << z << endl;
-	}
-	return istrm.good();
-}
-
 int main() {
 
-	using namespace std;
+  Complex c_def;
+	std::cout << "Let's create complex number. Complex number is " 
+            << c_def << std::endl;
+  Complex a(1.1);
+  std::cout << "Let's create complex number1 where re = 1,1. Complex number1 is "
+            << a << std::endl;
+  Complex b(1.1, 2.2);
+  std::cout << "Let's create complex number2 where re = 1,1, im = 2,2. "
+            << "Complex number2 is " << b << std::endl;
+  Complex c(b);
+  std::cout << "Let's create copy of complex number2. Complex number3 is "
+            << c << std::endl;
+  Complex d = b;
+  std::cout << "Let's create complex number4 = number2. Complex number4 is "
+            << d << std::endl;
+  std::cout << std::endl;
 
-	testParse("{8.9,9}");
-	testParse("{8.9, 9}");
-	testParse("{8.9,9");
-	cout << endl;
-	cout << "Complex() = " << Complex() << ";		Complex(8.9) = " <<
-		Complex(8.9) << ";		Complex(8.9, -9.1) = " << Complex(8.9, -9.1) << endl;
-	Complex a(-8.9, 9.1);
-	Complex b(-8.9, 9.1);
-	Complex c(-8.9, 5.2);
-	cout << a << "==" << b << " -> " << (a == b) << ";		" << a << "==" << c << " -> " << (a == c) << endl;
-	cout << a << "!=" << b << " -> " << (a != b) << ";		" << a << "!=" << c << " -> " << (a != c) << endl;
-	cout << endl;
-	a = Complex(1.0, 1.1);
-	b = Complex(1.2, -2.2);
-	cout << "A = " << a << endl;
-	cout << "A += " << b << " -> " << (a += b) << endl;
-	cout << "A += 1.1 -> " << (a += 1.1) << endl;
-	cout << a << " + " << b << " = " << (a + b) << endl;
-	cout << a << " + 1.1 = " << (a + 1.1) << endl;
-	cout << "1.1 + " << a << " = " << (1.1 + a) << endl;
-	cout << endl;
+	a = Complex(-8.9, 9.1);
+	b = Complex(-8.9, 9.1);
+	c = Complex(-8.9, 5.2);
+	std::cout << a << "==" << b << " -> " << (a == b) << ";		" << a << "==" << c << " -> " << (a == c) << std::endl;
+  std::cout << a << "!=" << b << " -> " << (a != b) << ";		" << a << "!=" << c << " -> " << (a != c) << std::endl;
+  std::cout << std::endl;
+
+	a = Complex(1.1, 2.2);
+	b = Complex(2.3, -2.2);
+  std::cout << "A = " << a << std::endl;
+  std::cout << "A += " << b << " -> " << (a += b) << std::endl;
+  std::cout << "A += 1.1 -> " << (a += 1.1) << std::endl;
+  a = Complex(1.1, 2.2);
+  std::cout << a << " + " << b << " = " << (a + b) << std::endl;
+  std::cout << a << " + 2.3 = " << (a + 2.3) << std::endl;
+  std::cout << "2.3 + " << a << " = " << (2.3 + a) << std::endl;
+  std::cout << "++" << a << " -> ";
+  std::cout << ++a << std::endl;
+  std::cout << a << "++ -> ";
+  std::cout << a++ << std::endl;
+  std::cout << "Complex number is " << a << std::endl;
+  std::cout << std::endl;
+
 	a = Complex(5.8, 4.4);
 	b = Complex(1.4, 1.1);
-	cout << "A = " << a << endl;
-	cout << "A -= " << b << " -> " << (a -= b) << endl;
-	cout << "A -= 1.1 -> " << (a -= 1.1) << endl;
-	cout << a << " - " << b << " = " << (a - b) << endl;
-	cout << a << " - 1.1 = " << (a - 1.1) << endl;
-	cout << "8.8 - " << a << " = " << (8.8 - a) << endl;
-	cout << endl;
-	a = Complex(1.1, 2.0);
-	b = Complex(5.0, 3.0);
-	cout << "A = " << a << endl;
-	cout << "A *= " << b << " -> " << (a *= b) << endl;
-	cout << "A *= 2 -> " << (a *= 2) << endl;
-	cout << a << " * " << b << " = " << (a*b) << endl;
-	cout << a << " * 5 = " << (a * 5) << endl;
-	cout << "5 * " << a << " = " << (5 * a) << endl;
-	cout << endl;
-	a = Complex(32, 8);
+  std::cout << "A = " << a << std::endl;
+  std::cout << "A -= " << b << " -> " << (a -= b) << std::endl;
+  std::cout << "A -= 1.1 -> " << (a -= 1.1) << std::endl;
+  a = Complex(5.8, 4.4);
+  std::cout << a << " - " << b << " = " << (a - b) << std::endl;
+  std::cout << a << " - 1.1 = " << (a - 1.1) << std::endl;
+  std::cout << "8.8 - " << a << " = " << (8.8 - a) << std::endl;
+  std::cout << "--" << a << " -> ";
+  std::cout << --a << std::endl;
+  std::cout << a << "-- -> ";
+  std::cout << a-- << std::endl;
+  std::cout << "Complex number is " << a << std::endl;
+  std::cout << std::endl;
+
+	a = Complex(1, 2);
+	b = Complex(2, 3);
+  std::cout << "A = " << a << std::endl;
+  std::cout << "A *= " << b << " -> " << (a *= b) << std::endl;
+  std::cout << "A *= 2 -> " << (a *= 2) << std::endl;
+  a = Complex(1, 2);
+  std::cout << a << " * " << b << " = " << (a*b) << std::endl;
+  std::cout << a << " * 2 = " << (a * 2) << std::endl;
+  std::cout << "2 * " << a << " = " << (2 * a) << std::endl;
+  std::cout << std::endl;
+
+	a = Complex(16, 8);
 	b = Complex(1, 2);
-	cout << "A = " << a << endl;
-	cout << "A /= " << b << " -> " << (a /= b) << endl;
-	cout << "A /= 2 -> " << (a /= 2) << endl;
-	cout << a << " / " << b << " = " << (a / b) << endl;
-	cout << a << " / 2 = " << (a / 2) << endl;
-	cout << "64 / " << a << " = " << (64 / a) << endl;
-	cout << endl;
+  std::cout << "A = " << a << std::endl;
+  std::cout << "A /= " << b << " -> " << (a /= b) << std::endl;
+  std::cout << "A /= 2 -> " << (a /= 2) << std::endl;
+  a = Complex(16, 8);
+  std::cout << a << " / " << b << " = " << (a / b) << std::endl;
+  std::cout << a << " / 2 = " << (a / 2) << std::endl;
+  std::cout << "64 / " << a << " = " << (64 / a) << std::endl;
+  std::cout << std::endl;
 
 	return 0;
 }
