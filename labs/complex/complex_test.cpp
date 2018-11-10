@@ -2,14 +2,12 @@
 #include <iostream>
 #include <sstream>
 
-bool testParse(const std::string& str)
-{
+bool testParse(const std::string& str) {
 	using namespace std;
 	istringstream istrm(str);
 	Complex z;
 	istrm >> z;
-	if (istrm.good())
-	{
+	if (istrm.good()) {
 		cout << "Read success: " << str << " -> " << z << endl;
 	}
 	else {
@@ -18,8 +16,8 @@ bool testParse(const std::string& str)
 	return istrm.good();
 }
 
-int main()
-{
+int main() {
+
 	using namespace std;
 
 	testParse("{8.9,9}");

@@ -2,8 +2,8 @@
 #include <iostream>
 #include <sstream>
 
-int main()
-{
+int main() {
+
 	using namespace std;
 
 	MatrixAnA a(2, 3);

@@ -22,11 +22,12 @@ struct Complex {
 	Complex& operator/=(const double rhs) { return operator/=(Complex(rhs)); }
 	std::ostream& writeTo(std::ostream& ostrm) const;
 	std::istream& readFrom(std::istream& istrm);
-	double re{ 0.0 };
-	double im{ 0.0 };
-	static const char leftBrace{ '{' };
-	static const char separator{ ',' };
-	static const char rightBrace{ '}' };
+
+	double re{0.0};
+	double im{0.0};
+	static const char leftBrace{'{'};
+	static const char separator{','};
+	static const char rightBrace{'}'};
 };
 
 Complex operator+(const Complex& lhs, const Complex& rhs);

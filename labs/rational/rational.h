@@ -30,9 +30,9 @@ public:
 	std::ostream& writeTo(std::ostream& ostrm) const;
 	std::istream& readFrom(std::istream& istrm);
 private:
-	int num{ 0 };
-	int den{ 1 };
-	static const char separator{ '/' };
+	int num{0};
+	int den{1};
+	static const char separator{'/'};
 };
 
 int GCD(int a, int b);

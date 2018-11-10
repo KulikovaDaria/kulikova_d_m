@@ -19,8 +19,8 @@ public:
 	void pop_back();
 private:
 	void copy(const DynamicArray& obj, int l, int r);
-	int size_{ 0 };
-	int* data_{ nullptr };
+	int size_{0};
+	int* data_{nullptr};
 };
 
 #endif

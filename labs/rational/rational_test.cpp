@@ -4,8 +4,8 @@
 #include <iostream>
 #include <sstream>
 
-int main()
-{
+int main() {
+
 	using namespace std;	
 	try { 
 		Rational z(0, 0);

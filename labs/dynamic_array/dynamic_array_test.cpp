@@ -3,8 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-int main()
-{
+int main() {
+
 	using namespace std;
 
 	DynamicArray a1;
