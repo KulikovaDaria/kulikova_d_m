@@ -34,7 +34,9 @@ void StackOnList::Push(const int value) {
 
 void StackOnList::Pop() noexcept {
   if (nullptr != data_) {
+    Node* node_deleted(data_);
     data_ = data_->next;
+    delete node_deleted;
   }
 }
 

@@ -3,7 +3,6 @@
 
 #include <iosfwd>
 #include <stdexcept>
-#include <exception>
 
 class Rational {
 public:
