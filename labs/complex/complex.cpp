@@ -1,5 +1,4 @@
 #include "complex.h"
-
 #include <iostream>
 
 Complex::Complex(const double real)
@@ -168,7 +167,8 @@ std::istream& Complex::ReadFrom(std::istream& istrm) {
 	char right_brace(0);
 	istrm >> left_brace >> real >> comma >> imaginary >> right_brace;
 	if (istrm.good()) {
-		if ((Complex::kLeftBrace == left_brace) && (Complex::kSeparator == comma) && (Complex::kRightBrace == right_brace)) {
+		if ((Complex::kLeftBrace == left_brace) && (Complex::kSeparator == comma)
+        && (Complex::kRightBrace == right_brace)) {
 			re = real;
 			im = imaginary;
 		}
