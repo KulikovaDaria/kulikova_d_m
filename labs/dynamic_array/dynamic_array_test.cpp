@@ -54,5 +54,17 @@ int main() {
             << a2 << " != " << a3 << " -> " << (a2 != a3) << std::endl;
   std::cout << std::endl;
 
+  a3.PushBack(5);
+  std::cout << "A1 = " << a1 << std::endl;
+  std::cout << "A2 = " << a2 << std::endl;
+  std::cout << "A3 = " << a3 << std::endl;
+  std::cout << "Let's try to do A1 = A1 -> " << std::endl;
+  a1 = a1;
+  std::cout << "A1 = " << a1 << std::endl;
+  std::cout << "Let's try to do A1 = A2 = A3 -> " << std::endl;
+  a1 = a2 = a3;
+  std::cout << "A1 = " << a1 << std::endl;
+  std::cout << "A2 = " << a2 << std::endl;
+  std::cout << "A3 = " << a3 << std::endl;
 	return 0;
 }

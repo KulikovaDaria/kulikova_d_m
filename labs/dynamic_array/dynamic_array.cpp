@@ -110,7 +110,7 @@ void DynamicArray::PopBack() noexcept {
 
 
 
-void Copy(const int* const first, const int size, int* data_) {
+void Copy(const int* const first, const ptrdiff_t size, int* const data_) {
 	for (ptrdiff_t i = 0; i < size; ++i) {
 		*(data_ + i) = *(first + i);
 	}

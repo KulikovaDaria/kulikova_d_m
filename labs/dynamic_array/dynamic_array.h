@@ -24,7 +24,7 @@ private:
 	int* data_{nullptr};
 };
 
-void Copy(const int* const first, const int size, int* data_);
+void Copy(const int* const first, const ptrdiff_t size, int* const data_);
 
 inline std::ostream& operator<<(std::ostream& ostrm, const DynamicArray& obj) {
   return obj.WriteTo(ostrm);
