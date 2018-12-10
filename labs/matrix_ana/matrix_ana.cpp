@@ -1,89 +1,130 @@
 #include "matrix_ana.h"
-
 #include <iostream>
 #include <sstream>
 
-MatrixAnA::MatrixAnA() {
-	data_ = new int[0];
-	pointers_ = &data_;
+MatrixAnA::MatrixAnA()
+  :data_(new int[0]) {
 }
 
 
 
-MatrixAnA::MatrixAnA(int size1, int size2)
-	: size1_(size1), size2_(size2) {
-	data_ = new int[size1 * size2];
-	pointers_ = new int*[size1];
-	for (int i = 0; i < size1; ++i) {
-		*(pointers_ + i) = (data_ + i * size2);
-	}
+MatrixAnA::MatrixAnA(const ptrdiff_t i_size, const ptrdiff_t j_size)
+  : i_size_(i_size), j_size_(j_size), i_capacity_(i_size), j_capacity_(j_size),
+      data_(new int[i_size * j_size]) {
+  for (ptrdiff_t i = 0; i < i_size*j_size; ++i) {
+    *(data_ + i) = 0;
+  }
 }
 
 
 
-MatrixAnA::MatrixAnA(const MatrixAnA& obj) {
-	*this = obj;
+MatrixAnA::MatrixAnA(const MatrixAnA& obj)
+  : i_size_(obj.i_size_), j_size_(obj.j_size_), i_capacity_(obj.i_size_),
+      j_capacity_(obj.j_size_), data_(new int[obj.i_size_ * obj.j_size_]) {
+  Copy(obj.data_, i_size_, j_size_, data_, j_capacity_);
 }
 
 
 
 MatrixAnA::~MatrixAnA() {
-	size1_ = 0;
-	size2_ = 0;
-	delete[] pointers_;
-	delete[] data_;
-	pointers_ = nullptr;
-	data_ = nullptr;
+  i_size_ = 0;
+  j_size_ = 0;
+  i_capacity_ = 0;
+  j_capacity_ = 0;
+  delete[] data_;
+  data_ = nullptr;
 }
 
 
 
 MatrixAnA& MatrixAnA::operator=(const MatrixAnA& obj) {
-	size1_ = obj.size1_;
-	size1_ = obj.size2_;
-	data_ = new int[size1_ * size2_];
-	pointers_ = new int*[size1_];
-	this->copy(obj, 0, size1_, 0, size2_);
-	return *this;
+  if (this != &obj) {
+    if (i_capacity_ < obj.i_size_ || j_capacity_ < obj.j_size_) {
+      Resize(obj.i_size_, obj.j_size_);
+    }
+    Copy(obj.data_, obj.i_size_, obj.j_size_, data_, j_capacity_);
+    i_size_ = obj.i_size_;
+    j_size_ = obj.j_size_;
+  }
+  return *this;
 }
 
 
 
 bool MatrixAnA::operator==(const MatrixAnA& obj) const {
-	bool ans = false;
-	if ((size1_ == obj.size1_) && (size2_ == obj.size2_)) {
-		ans = true;
-		for (int i = 0; i < size1_; ++i) {
-			for (int j = 0; j < size2_; ++j) {
-				if (*(*(pointers_ + i) + j) != *(*(obj.pointers_ + i) + j)) {
-					ans = false;
-					break;
-				}
-			}
-		}
-	}
-	return ans;
+  if (i_size_ == obj.i_size_ && j_size_ == obj.j_size_) {
+    for (ptrdiff_t i = 0; i < i_size_ * j_size_; ++i) {
+      if (*(data_ + i) != *(obj.data_ + i)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
 }
 
 
 
-int& MatrixAnA::element(const int i, const int j) {
-	return *(*(pointers_ + i) + j);
+bool MatrixAnA::operator!=(const MatrixAnA& obj) const {
+  return !operator==(obj);
 }
 
 
 
-/*void MatrixAnA::resize(const int newSize) {
-	MatrixAnA tmp(newSize);
-
-}*/
-
+int& MatrixAnA::GetEl(const ptrdiff_t i, const ptrdiff_t j) {
+  return *(data_ + i * j_size_ + j);
+}
 
 
-void MatrixAnA::copy(const MatrixAnA& obj, const int i1, const int i2, const int j1, const int j2) {
-	for (int i = i1; i < i2; ++i) {
-		for (int j = j1; j < j2; ++j) {
-			*(*(pointers_ + i) + j) = *(*(obj.pointers_ + i) + j);
-		}
-	}
+
+ptrdiff_t MatrixAnA::RowSize() const {
+  return i_size_;
+}
+
+
+
+ptrdiff_t MatrixAnA::ColumnSize() const {
+  return j_size_;
+}
+
+
+
+void MatrixAnA::Resize(const ptrdiff_t i_new, const ptrdiff_t j_new) {
+  if (i_capacity_ < i_new || j_capacity_ < j_new) {
+    Reserve(i_new, j_new);
+  }
+  i_size_ = i_new;
+  j_size_ = j_new;
+}
+
+
+
+void MatrixAnA::Reserve(const ptrdiff_t i_new, const ptrdiff_t j_new) {
+  if (i_capacity_ < i_new || j_capacity_ < j_new) {
+    ptrdiff_t i_new_cap(i_new);
+    ptrdiff_t j_new_cap(j_new);
+    if (i_new_cap < i_capacity_) {
+      i_new_cap = i_capacity_;
+    }
+    if (j_new_cap < j_capacity_) {
+      j_new_cap = j_capacity_;
+    }
+    int* new_data_ = new int[i_new_cap * j_new_cap];
+    Copy(data_, i_size_, j_size_, new_data_, j_new_cap);
+    delete[] data_;
+    data_ = new_data_;
+    i_capacity_ = i_new_cap;
+    j_capacity_ = j_new_cap;
+  }
+}
+
+
+
+void Copy(const int* const first, const ptrdiff_t i_size,
+    const ptrdiff_t j_size, int* const data, const ptrdiff_t j_cap) {
+  for (ptrdiff_t i = 0; i < i_size; ++i) {
+    for (ptrdiff_t j = 0; j < j_size; ++j) {
+      *(data + i * j_cap + j) = *(first + i * j_size + j);
+    }
+  }
 }

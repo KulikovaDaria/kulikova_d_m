@@ -4,7 +4,6 @@
 #include <stdexcept>
 
 int main() {
-
   Rational a_def;
   std::cout << "Let's create default rational number. Rational number is "
             << a_def << std::endl;
@@ -19,7 +18,7 @@ int main() {
   try {
     Rational a0(3, 0);
   }
-  catch (const std::invalid_argument& except) {
+  catch(const std::invalid_argument& except) {
     std::cout << except.what() << std::endl;
   }
   Rational c(b);
@@ -61,9 +60,9 @@ int main() {
   b = Rational(2, 3);
   c = Rational(5, 3);
   std::cout << "Let's check operators == and != :" << std::endl;
-  std::cout << a << " == " << b << " -> " << (a == b) << ";		"
+  std::cout << a << " == " << b << " -> " << (a == b) << "; "
             << a << " == " << c << " -> " << (a == c) << std::endl;
-  std::cout << a << " != " << b << " -> " << (a != b) << ";		"
+  std::cout << a << " != " << b << " -> " << (a != b) << "; "
             << a << " != " << c << " -> " << (a != c) << std::endl;
   std::cout << std::endl;
 
@@ -134,17 +133,17 @@ int main() {
   try {
     a /= 0;
   }
-  catch (const std::invalid_argument& except) {
+  catch(const std::invalid_argument& except) {
     std::cout << except.what() << std::endl;
   }
   std::cout << a << " / 0 -> ";
   try {
     b = a / 0;
   }
-  catch (const std::invalid_argument& except) {
+  catch(const std::invalid_argument& except) {
     std::cout << except.what() << std::endl;
   }
   std::cout << std::endl;
 
-	return 0;
+  return 0;
 }

@@ -3,9 +3,8 @@
 #include <sstream>
 
 int main() {
-
   Complex c_def;
-	std::cout << "Let's create default complex number. Complex number is " 
+  std::cout << "Let's create default complex number. Complex number is "
             << c_def << std::endl;
   Complex a(1.1);
   std::cout << "Let's create complex number1 where re = 1,1. "
@@ -37,19 +36,19 @@ int main() {
   std::cout << "C = " << c << std::endl;
   std::cout << std::endl;
 
-	a = Complex(-8.9, 9.1);
-	b = Complex(-8.9, 9.1);
-	c = Complex(-8.9, 5.2);
+  a = Complex(-8.9, 9.1);
+  b = Complex(-8.9, 9.1);
+  c = Complex(-8.9, 5.2);
   std::cout << "Let's check operators == and != :" << std::endl;
-	std::cout << a << " == " << b << " -> " << (a == b) << ";		" 
+  std::cout << a << " == " << b << " -> " << (a == b) << "; "
             << a << " == " << c << " -> " << (a == c) << std::endl;
-  std::cout << a << " != " << b << " -> " << (a != b) << ";		" 
+  std::cout << a << " != " << b << " -> " << (a != b) << "; "
             << a << " != " << c << " -> " << (a != c) << std::endl;
   std::cout << std::endl;
 
   std::cout << "Let's check operators +, ++ and += :" << std::endl;
-	a = Complex(1.1, 2.2);
-	b = Complex(2.3, -2.2);
+  a = Complex(1.1, 2.2);
+  b = Complex(2.3, -2.2);
   std::cout << "A = " << a << std::endl;
   std::cout << "A += " << b << " -> " << (a += b) << std::endl;
   std::cout << "A += 1.1 -> " << (a += 1.1) << std::endl;
@@ -65,8 +64,8 @@ int main() {
   std::cout << std::endl;
 
   std::cout << "Let's check operators -, -- and -= :" << std::endl;
-	a = Complex(5.8, 4.4);
-	b = Complex(1.4, 1.1);
+  a = Complex(5.8, 4.4);
+  b = Complex(1.4, 1.1);
   std::cout << "A = " << a << std::endl;
   std::cout << "A -= " << b << " -> " << (a -= b) << std::endl;
   std::cout << "A -= 1.1 -> " << (a -= 1.1) << std::endl;
@@ -82,8 +81,8 @@ int main() {
   std::cout << std::endl;
 
   std::cout << "Let's check operators * and *= :" << std::endl;
-	a = Complex(1, 2);
-	b = Complex(2, 3);
+  a = Complex(1, 2);
+  b = Complex(2, 3);
   std::cout << "A = " << a << std::endl;
   std::cout << "A *= " << b << " -> " << (a *= b) << std::endl;
   std::cout << "A *= 2 -> " << (a *= 2) << std::endl;
@@ -94,8 +93,8 @@ int main() {
   std::cout << std::endl;
 
   std::cout << "Let's check operators / and /= :" << std::endl;
-	a = Complex(16, 8);
-	b = Complex(1, 2);
+  a = Complex(16, 8);
+  b = Complex(1, 2);
   std::cout << "A = " << a << std::endl;
   std::cout << "A /= " << b << " -> " << (a /= b) << std::endl;
   std::cout << "A /= 2 -> " << (a /= 2) << std::endl;
@@ -105,5 +104,5 @@ int main() {
   std::cout << "64 / " << a << " = " << (64 / a) << std::endl;
   std::cout << std::endl;
 
-	return 0;
+  return 0;
 }

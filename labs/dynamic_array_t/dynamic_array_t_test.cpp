@@ -11,11 +11,12 @@ void Test(T val1, T val2, T val3, T val4) {
   DynamicArrayT<T> a1(2);
   std::cout << "Let's create array1 where size = 2. Array1 is " << a1
     << std::endl;
-  a1.PushBack(val1);
-  a1.PushBack(val2);
+  a1[0] = val1;
+  a1[1] = val2;
+  std::cout << "Let's do a1[0] = " << val1 << ", a1[1] = " << val2
+    << ". Array1 is " << a1 << std::endl;
   a1.PushBack(val3);
-  std::cout << "Let's push " << val1 << ' ' << val2 << ' ' << val3 << ". "
-    << "Array is " << a1 << std::endl;
+  std::cout << "Let's push " << val3 << ". " << "Array is " << a1 << std::endl;
   std::cout << "Size is " << a1.Size() << std::endl;
   std::cout << std::endl;
 
@@ -30,7 +31,7 @@ void Test(T val1, T val2, T val3, T val4) {
     std::cout << "Let's try to get a2[4] -> ";
     std::cout << a2[4] << std::endl;
   }
-  catch (const std::out_of_range& exp) {
+  catch(const std::out_of_range& exp) {
     std::cout << exp.what() << std::endl;
   }
   std::cout << std::endl;
@@ -45,9 +46,9 @@ void Test(T val1, T val2, T val3, T val4) {
   std::cout << std::endl;
 
   std::cout << "Let's check operators ==, != :" << std::endl;
-  std::cout << a2 << " == " << a1 << " -> " << (a2 == a1) << ";		"
+  std::cout << a2 << " == " << a1 << " -> " << (a2 == a1) << "; "
     << a2 << " == " << a3 << " -> " << (a2 == a3) << std::endl;
-  std::cout << a2 << " != " << a1 << " -> " << (a2 != a1) << ";		"
+  std::cout << a2 << " != " << a1 << " -> " << (a2 != a1) << "; "
     << a2 << " != " << a3 << " -> " << (a2 != a3) << std::endl;
   std::cout << std::endl;
 
@@ -67,7 +68,6 @@ void Test(T val1, T val2, T val3, T val4) {
 }
 
 int main() {
-
   std::cout << "Let's check DinamicArrayT for INT" << std::endl;
   std::cout << std::endl;
   Test<int>(1, 2, 3, 5);
@@ -76,5 +76,5 @@ int main() {
   std::cout << std::endl;
   Test<double>(1.1, 2.4, 3.1, 5.7);
 
-	return 0;
+  return 0;
 }

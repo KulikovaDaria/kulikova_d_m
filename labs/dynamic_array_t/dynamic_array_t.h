@@ -5,31 +5,33 @@
 template<typename T>
 class DynamicArrayT {
 public:
-	DynamicArrayT();
-	DynamicArrayT(const ptrdiff_t size);
-	DynamicArrayT(const DynamicArrayT& obj);
-	~DynamicArrayT() noexcept;
-	DynamicArrayT& operator=(const DynamicArrayT& obj);
-	bool operator==(const DynamicArrayT& obj) const noexcept;
-	bool operator!=(const DynamicArrayT& obj) const noexcept  { return !operator==(obj);  };
-	T& operator[](const ptrdiff_t i) const;
-	ptrdiff_t Size() const noexcept ;
-	void Resize(const ptrdiff_t new_size);
+  DynamicArrayT();
+  explicit DynamicArrayT(const ptrdiff_t size);
+  DynamicArrayT(const DynamicArrayT& obj);
+  ~DynamicArrayT() noexcept;
+  DynamicArrayT& operator=(const DynamicArrayT& obj);
+  bool operator==(const DynamicArrayT& obj) const noexcept;
+  bool operator!=(const DynamicArrayT& obj) const noexcept;
+  T& operator[](const ptrdiff_t i) const;
+  ptrdiff_t Size() const noexcept;
+  void Resize(const ptrdiff_t new_size);
   void Reserve(const ptrdiff_t new_capacity);
-	void PushBack(const T a);
-	void PopBack() noexcept;
+  void PushBack(const T a);
+  void PopBack() noexcept;
   std::ostream& WriteTo(std::ostream& ostrm) const;
+
 private:
-	ptrdiff_t size_{0};
-  ptrdiff_t capacity_{0};
-	T* data_{nullptr};
+  ptrdiff_t size_ {0};
+  ptrdiff_t capacity_ {0};
+  T* data_ {nullptr};
 };
 
 template<typename T>
-void Copy(const T* const first, const ptrdiff_t size, T* const data_);
+void Copy(const T* const first, const ptrdiff_t size, T* const data);
 
 template<typename T>
-inline std::ostream& operator<<(std::ostream& ostrm, const DynamicArrayT<T>& obj) {
+inline std::ostream& operator<<(std::ostream& ostrm,
+    const DynamicArrayT<T>& obj) {
   return obj.WriteTo(ostrm);
 }
 
@@ -44,7 +46,10 @@ DynamicArrayT<T>::DynamicArrayT()
 
 template<typename T>
 DynamicArrayT<T>::DynamicArrayT(const ptrdiff_t size)
-  : size_(0), capacity_(size), data_(new T[size]) {
+  : size_(size), capacity_(size), data_(new T[size]) {
+  for (ptrdiff_t i = 0; i < size; ++i) {
+    *(data_ + i) = 0;
+  }
 }
 
 
@@ -96,7 +101,8 @@ bool DynamicArrayT<T>::operator==(const DynamicArrayT<T>& obj) const noexcept {
 
 
 
-bool DynamicArrayT<double>::operator==(const DynamicArrayT<double>& obj) const noexcept {
+bool DynamicArrayT<double>::operator==(const DynamicArrayT<double>& obj)
+    const noexcept {
   const double eps(0.0001);
   if (size_ == obj.size_) {
     for (ptrdiff_t i = 0; i < size_; ++i) {
@@ -107,6 +113,13 @@ bool DynamicArrayT<double>::operator==(const DynamicArrayT<double>& obj) const n
     return true;
   }
   return false;
+}
+
+
+
+template<typename T>
+bool DynamicArrayT<T>::operator!=(const DynamicArrayT<T>& obj) const noexcept {
+  return !operator==(obj);
 }
 
 
@@ -170,9 +183,9 @@ void DynamicArrayT<T>::PopBack() noexcept {
 
 
 template<typename T>
-void Copy(const T* const first, const ptrdiff_t size, T* const data_) {
+void Copy(const T* const first, const ptrdiff_t size, T* const data) {
   for (ptrdiff_t i = 0; i < size; ++i) {
-    *(data_ + i) = *(first + i);
+    *(data + i) = *(first + i);
   }
 }
 

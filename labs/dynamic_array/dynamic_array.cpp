@@ -4,18 +4,21 @@
 #include <sstream>
 
 DynamicArray::DynamicArray()
-	:data_(new int[0]) {
+  :data_(new int[0]) {
 }
 
 
 
 DynamicArray::DynamicArray(const ptrdiff_t size)
-	: size_(0), capacity_(size), data_(new int[size]) {
+  : size_(size), capacity_(size), data_(new int[size]) {
+  for (ptrdiff_t i = 0; i < size; ++i) {
+    *(data_ + i) = 0;
+  }
 }
 
 
 
-DynamicArray::DynamicArray(const DynamicArray& obj) 
+DynamicArray::DynamicArray(const DynamicArray& obj)
   :size_(obj.size_), capacity_(obj.size_), data_(new int[obj.size_]) {
   Copy(obj.data_, obj.size_, data_);
 }
@@ -23,37 +26,43 @@ DynamicArray::DynamicArray(const DynamicArray& obj)
 
 
 DynamicArray::~DynamicArray() noexcept {
-	size_ = 0;
+  size_ = 0;
   capacity_ = 0;
-	delete[] data_;
-	data_ = nullptr;
+  delete[] data_;
+  data_ = nullptr;
 }
 
 
 
-DynamicArray& DynamicArray::operator=(const DynamicArray& obj) {	
-	if (this != &obj) {
+DynamicArray& DynamicArray::operator=(const DynamicArray& obj) {
+  if (this != &obj) {
     if (capacity_ < obj.size_) {
       Resize(obj.size_);
     }
     Copy(obj.data_, obj.size_, data_);
     size_ = obj.size_;
-	}
-	return *this;
+  }
+  return *this;
 }
 
 
 
 bool DynamicArray::operator==(const DynamicArray& obj) const noexcept {
-	if (size_ == obj.size_) {
+  if (size_ == obj.size_) {
     for (ptrdiff_t i = 0; i < size_; ++i) {
       if (*(data_ + i) != *(obj.data_ + i)) {
         return false;
       }
     }
     return true;
-	}
-	return false;
+  }
+  return false;
+}
+
+
+
+bool DynamicArray::operator!=(const DynamicArray& obj) const noexcept {
+  return !operator==(obj);
 }
 
 
@@ -62,13 +71,13 @@ int& DynamicArray::operator[](const ptrdiff_t i) const {
   if ((i < 0) || (i >= size_)) {
     throw std::out_of_range("Invalid index");
   }
-	return *(data_ + i);
+  return *(data_ + i);
 }
 
 
 
 ptrdiff_t DynamicArray::Size() const noexcept {
-	return size_;
+  return size_;
 }
 
 
@@ -98,7 +107,7 @@ void DynamicArray::PushBack(const int a) {
   if (capacity_ < size_ + 1) {
     Reserve(size_ + 1);
   }
-	*(data_ + size_) = a;
+  *(data_ + size_) = a;
   ++size_;
 }
 
@@ -110,10 +119,10 @@ void DynamicArray::PopBack() noexcept {
 
 
 
-void Copy(const int* const first, const ptrdiff_t size, int* const data_) {
-	for (ptrdiff_t i = 0; i < size; ++i) {
-		*(data_ + i) = *(first + i);
-	}
+void Copy(const int* const first, const ptrdiff_t size, int* const data) {
+  for (ptrdiff_t i = 0; i < size; ++i) {
+    *(data + i) = *(first + i);
+  }
 }
 
 

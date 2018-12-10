@@ -1,25 +1,31 @@
 #ifndef MATRIX_ANA_H
 #define MATRIX_ANA_H
-
 #include <iosfwd>
 
 class MatrixAnA {
 public:
-	MatrixAnA();
-	MatrixAnA(const int size1, const int size2);
-	MatrixAnA(const MatrixAnA& obj);
-	~MatrixAnA();
-	MatrixAnA& operator=(const MatrixAnA& obj);
-	bool operator==(const MatrixAnA& obj) const;
-	bool operator!=(const MatrixAnA& obj) const { return !operator==(obj); }
-	int& element(const int i, const int j);
-	void resize(const int iNew, const int jNew);
+  MatrixAnA();
+  MatrixAnA(const ptrdiff_t i_size, const ptrdiff_t j_size);
+  MatrixAnA(const MatrixAnA& obj);
+  ~MatrixAnA();
+  MatrixAnA& operator=(const MatrixAnA& obj);
+  bool operator==(const MatrixAnA& obj) const;
+  bool operator!=(const MatrixAnA& obj) const;
+  int& GetEl(const ptrdiff_t i, const ptrdiff_t j);
+  void Resize(const ptrdiff_t i_new, const ptrdiff_t j_new);
+  void Reserve(const ptrdiff_t i_new, const ptrdiff_t j_new);
+  ptrdiff_t RowSize() const;
+  ptrdiff_t  ColumnSize() const;
+
 private:
-	void copy(const MatrixAnA& obj, const int i1, const int i2, const int j1, const int j2);
-	int size1_{ 0 };
-	int size2_{ 0 };
-	int* data_{ nullptr };
-	int** pointers_{ nullptr };
+  ptrdiff_t i_size_ {0};
+  ptrdiff_t j_size_ {0};
+  ptrdiff_t i_capacity_ {0};
+  ptrdiff_t j_capacity_ {0};
+  int* data_ {nullptr};
 };
+
+void Copy(const int* const first, const ptrdiff_t i_size,
+    const ptrdiff_t j_size, int* const data, const ptrdiff_t j_cap);
 
 #endif
