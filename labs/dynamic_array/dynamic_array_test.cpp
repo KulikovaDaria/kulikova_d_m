@@ -7,6 +7,13 @@ int main() {
   DynamicArray a_def;
   std::cout << "Let's create default array. Array is " << a_def << std::endl;
   std::cout << "Size is " << a_def.Size() << std::endl;
+  std::cout << "Let's try to create array0 where size = -2. -> " << std::endl;
+  try {
+    DynamicArray a0(-2);
+  }
+  catch(const std::length_error& exp) {
+    std::cout << exp.what() << std::endl;
+  }
   DynamicArray a1(2);
   std::cout << "Let's create array1 where size = 2. Array1 is " << a1
             << std::endl;
@@ -47,6 +54,8 @@ int main() {
   std::cout << "Size is " << a3.Size() << std::endl;
   std::cout << std::endl;
 
+  a3.PushBack(5);
+  a2.PushBack(3);
   std::cout << "Let's check operators ==, != :" << std::endl;
   std::cout << a2 << " == " << a1 << " -> " << (a2 == a1) << "; "
             << a2 << " == " << a3 << " -> " << (a2 == a3) << std::endl;
@@ -54,7 +63,7 @@ int main() {
             << a2 << " != " << a3 << " -> " << (a2 != a3) << std::endl;
   std::cout << std::endl;
 
-  a3.PushBack(5);
+  a2[2] = 4;
   std::cout << "A1 = " << a1 << std::endl;
   std::cout << "A2 = " << a2 << std::endl;
   std::cout << "A3 = " << a3 << std::endl;

@@ -15,7 +15,7 @@ Complex::Complex(const double real, const double imaginary)
 
 bool Complex::operator==(const Complex& rhs) const {
   double eps(0.000001);
-  return (abs(re - rhs.re) < eps) && (abs(im - rhs.im) < eps);
+  return (std::abs(re - rhs.re) < eps) && (std::abs(im - rhs.im) < eps);
 }
 
 

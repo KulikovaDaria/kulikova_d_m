@@ -2,21 +2,30 @@
 #include <exception>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 template<typename T>
-void Test(T val1, T val2, T val3, T val4) {
+void Test(const DynamicArrayT<T>& val) {
   DynamicArrayT<T> a_def;
   std::cout << "Let's create default array. Array is " << a_def << std::endl;
   std::cout << "Size is " << a_def.Size() << std::endl;
+  std::cout << "Let's try to create array0 where size = -2. -> " << std::endl;
+  try {
+    DynamicArrayT<T> a0(-2);
+  }
+  catch(const std::length_error& exp) {
+    std::cout << exp.what() << std::endl;
+  }
   DynamicArrayT<T> a1(2);
   std::cout << "Let's create array1 where size = 2. Array1 is " << a1
     << std::endl;
-  a1[0] = val1;
-  a1[1] = val2;
-  std::cout << "Let's do a1[0] = " << val1 << ", a1[1] = " << val2
+  a1[0] = val[0];
+  a1[1] = val[1];
+  std::cout << "Let's do a1[0] = " << val[0] << ", a1[1] = " << val[1]
     << ". Array1 is " << a1 << std::endl;
-  a1.PushBack(val3);
-  std::cout << "Let's push " << val3 << ". " << "Array is " << a1 << std::endl;
+  a1.PushBack(val[2]);
+  std::cout << "Let's push " << val[2] << ". " << "Array is " << a1
+      << std::endl;
   std::cout << "Size is " << a1.Size() << std::endl;
   std::cout << std::endl;
 
@@ -45,6 +54,8 @@ void Test(T val1, T val2, T val3, T val4) {
   std::cout << "Size is " << a3.Size() << std::endl;
   std::cout << std::endl;
 
+  a3.PushBack(val[3]);
+  a2.PushBack(val[2]);
   std::cout << "Let's check operators ==, != :" << std::endl;
   std::cout << a2 << " == " << a1 << " -> " << (a2 == a1) << "; "
     << a2 << " == " << a3 << " -> " << (a2 == a3) << std::endl;
@@ -52,7 +63,7 @@ void Test(T val1, T val2, T val3, T val4) {
     << a2 << " != " << a3 << " -> " << (a2 != a3) << std::endl;
   std::cout << std::endl;
 
-  a3.PushBack(val4);
+  a2[2] = val[4];
   std::cout << "A1 = " << a1 << std::endl;
   std::cout << "A2 = " << a2 << std::endl;
   std::cout << "A3 = " << a3 << std::endl;
@@ -64,17 +75,41 @@ void Test(T val1, T val2, T val3, T val4) {
   std::cout << "A1 = " << a1 << std::endl;
   std::cout << "A2 = " << a2 << std::endl;
   std::cout << "A3 = " << a3 << std::endl;
-  std::cout << std::endl;
 }
 
 int main() {
   std::cout << "Let's check DinamicArrayT for INT" << std::endl;
   std::cout << std::endl;
-  Test<int>(1, 2, 3, 5);
+  DynamicArrayT<int> test_int(5);
+  test_int[0] = 1;
+  test_int[1] = 2;
+  test_int[2] = 3;
+  test_int[3] = 4;
+  test_int[4] = 5;
+  Test<int>(test_int);
   std::cout << std::endl;
+
   std::cout << "Let's check DinamicArrayT for DOUBLE" << std::endl;
   std::cout << std::endl;
-  Test<double>(1.1, 2.4, 3.1, 5.7);
+  DynamicArrayT<double> test_double(5);
+  test_double[0] = 1.1;
+  test_double[1] = 2.3;
+  test_double[2] = 3.0;
+  test_double[3] = 4.1;
+  test_double[4] = 5.7;
+  Test<double>(test_double);
+  std::cout << std::endl;
+
+  std::cout << "Let's check DinamicArrayT for STRING" << std::endl;
+  std::cout << std::endl;
+  DynamicArrayT<std::string> test_string(5);
+  test_string[0] = "aaa";
+  test_string[1] = "abc";
+  test_string[2] = "bq";
+  test_string[3] = "cv";
+  test_string[4] = "fg";
+  Test<std::string>(test_string);
+  std::cout << std::endl;
 
   return 0;
 }
