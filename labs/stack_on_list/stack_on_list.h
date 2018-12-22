@@ -1,6 +1,5 @@
 #ifndef STACK_ON_LIST_H
 #define STACK_ON_LIST_H
-
 #include <iosfwd>
 
 class StackOnList {
@@ -16,17 +15,14 @@ public:
   std::ostream& WriteTo(std::ostream& ostrm) const;
 private:
   struct Node {
-    Node(const int value, Node* const p)
-      : data(value), next(p) {
+    Node() = default;
+    Node(const int v, Node* p)
+      :data(v), next(p) {
     }
-
-    int data{0};
-    Node* next{nullptr};
+    int data {0};
+    Node* next {nullptr};
   };
-private:
-  void Swap(StackOnList& rhs) noexcept;
-
-  Node* data_{nullptr};
+  Node* data_ {nullptr};
 };
 
 inline std::ostream& operator<<(std::ostream& ostrm, const StackOnList& obj) {

@@ -1,0 +1,27 @@
+{
+  "roads": [
+    {
+      "image": "D:\\Daria\\kulikova_d_m\\dataset\\r1.png",
+      "mask": [
+        "D:\\Daria\\kulikova_d_m\\dataset\\r1_m.png"
+      ]
+    },
+    {
+      "image": "D:\\Daria\\kulikova_d_m\\dataset\\r7.png",
+      "mask": [
+        "D:\\Daria\\kulikova_d_m\\dataset\\r7_m.png",
+        "D:\\Daria\\kulikova_d_m\\dataset\\r7_m1.png"
+      ]
+    }
+  ],
+  "cars": [
+    {
+      "image": "D:\\Daria\\kulikova_d_m\\dataset\\c1.png",
+      "mask": "D:\\Daria\\kulikova_d_m\\dataset\\c1_m.png"
+    },
+    {
+      "image": "D:\\Daria\\kulikova_d_m\\dataset\\c2.png",
+      "mask": "D:\\Daria\\kulikova_d_m\\dataset\\c2_m.png"
+    }
+  ]
+}

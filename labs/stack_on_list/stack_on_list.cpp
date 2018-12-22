@@ -1,17 +1,45 @@
 #include "stack_on_list.h"
-
 #include <iostream>
-#include <stdexcept>
+#include <exception>
 
 StackOnList::StackOnList(const StackOnList& obj) {
-  this->data_ = obj.data_;
+  Node* p_obj = obj.data_;
+  data_ = new Node;
+  Node* p_this = data_;
+  while (p_obj != nullptr) {
+    p_this->data = p_obj->data;
+    p_obj = p_obj->next;
+    if (p_obj != nullptr) {
+      p_this->next = new Node;
+      p_this = p_this->next;
+    }
+  }
 }
 
 
 
 StackOnList& StackOnList::operator=(const StackOnList& obj) {
   if (this != &obj) {
-    Swap(StackOnList(obj));
+    Node* p_obj(obj.data_);
+    if (nullptr == data_ && nullptr != obj.data_) {
+      data_ = new Node;
+    }
+    Node* p_this(data_);
+    while (p_obj != nullptr) {
+      p_this->data = p_obj->data;
+      p_obj = p_obj->next;
+      if (nullptr == p_this->next && p_obj != nullptr) {
+        p_this->next = new Node;
+      }
+      if (p_obj != nullptr) {
+        p_this = p_this->next;
+      }
+    }
+    if (p_this->next != nullptr) {
+      Node* node_deleted(p_this->next);
+      p_this->next = nullptr;
+      delete node_deleted;
+    }
   }
   return *this;
 }
@@ -57,17 +85,11 @@ bool StackOnList::IsEmpty() const noexcept {
 
 
 
-void StackOnList::Swap(StackOnList& rhs) noexcept {
-  std::swap(this->data_, rhs.data_);
-}
-
-
 
 std::ostream& StackOnList::WriteTo(std::ostream& ostrm) const {
   Node* printed_node(data_);
   ostrm << '{';
-  while (printed_node)
-  {
+  while (printed_node) {
     ostrm << printed_node->data;
     printed_node = printed_node->next;
     if (printed_node) {

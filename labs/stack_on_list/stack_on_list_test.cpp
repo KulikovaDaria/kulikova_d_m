@@ -1,10 +1,8 @@
 #include "stack_on_list.h"
-
 #include <iostream>
-#include <stdexcept>
+#include <exception>
 
 int main() {
-
   StackOnList st_def;
   std::cout << "Let's create default stack. Stack is " << st_def << std::endl;
   std::cout << "Is def create empty -> " << st_def.IsEmpty() << std::endl;
@@ -12,7 +10,7 @@ int main() {
     std::cout << "Let's try to get top -> ";
     st_def.Top();
   }
-  catch (const std::logic_error& except) {
+  catch(const std::logic_error& except) {
     std::cout << except.what() << std::endl;
   }
   std::cout << std::endl;
@@ -32,7 +30,7 @@ int main() {
   std::cout << "Is stack1 empty -> " << st1.IsEmpty() << std::endl;
   std::cout << std::endl;
 
-  std::cout << "Let's push values from " << (val1 + 1) 
+  std::cout << "Let's push values from " << (val1 + 1)
                                << " to " << (val1 + 3) << std::endl;
   st1.Push(val1 + 1);
   st1.Push(val1 + 2);
