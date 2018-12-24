@@ -4,23 +4,27 @@
 
 class QueueOnArray {
 public:
-  QueueOnArray();
+  QueueOnArray() = default;
   QueueOnArray(const QueueOnArray& obj);
   ~QueueOnArray();
   QueueOnArray& operator=(const QueueOnArray& obj);
   void Push(const int value);
-  void Pop();
+  void Pop() noexcept;
   int Top() const;
+  bool IsEmpty() const noexcept;
+  std::ostream& WriteTo(std::ostream& ostrm) const;
 
 private:
-  void Swap(QueueOnArray& rhs);
-  void Resize();
-  void Copy(const QueueOnArray& obj);
-
-  int size_{0};
-  int i_first_{-1};
-  int i_last_{0};
+  void Resize(const ptrdiff_t new_size);
+  ptrdiff_t RealSize() const;
+  ptrdiff_t size_{0};
+  ptrdiff_t i_first_{0};
+  ptrdiff_t i_last_{0};
   int* data_{nullptr};
 };
+
+inline std::ostream& operator<<(std::ostream& ostrm, const QueueOnArray& obj) {
+  return obj.WriteTo(ostrm);
+}
 
 #endif

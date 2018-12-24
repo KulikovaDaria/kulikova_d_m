@@ -1,72 +1,110 @@
 #include "queue_on_array.h"
-
 #include <iostream>
-
-QueueOnArray::QueueOnArray() {
-  data_ = new int[0];
-}
-
-
+#include <exception>
 
 QueueOnArray::QueueOnArray(const QueueOnArray& obj)
-  : size_(obj.size_), i_first_(0), i_last_(obj.size_) {
+  :i_first_(0) {
+  size_ = obj.RealSize() + 1;
+  i_last_ = size_ - 1;
   data_ = new int[size_];
-  Copy(obj);
+  for (ptrdiff_t i = 0; i < size_- 1; ++i) {
+    *(data_ + i) = *(obj.data_ + (i + i_first_) % obj.size_);
+  }
 }
 
 
 
 QueueOnArray& QueueOnArray::operator=(const QueueOnArray& obj) {
   if (this != &obj) {
-    std::swap(*this, QueueOnArray(obj));
+    ptrdiff_t size = obj.RealSize();
+    if (size_ <= size) {
+      Resize(size + 1);
+    }
+    i_first_ = 0;
+    i_last_ = size;
+    for (ptrdiff_t i = 0; i < size; ++i) {
+      *(data_ + i) = *(obj.data_ + (i + i_first_) % obj.size_);
+    }
   }
   return *this;
 }
 
 
 
-
 QueueOnArray::~QueueOnArray() {
-  size_ = 0;
-  i_first_ = 0;
-  i_last_ = 0;
   delete[] data_;
   data_ = nullptr;
 }
 
 
 
-void QueueOnArray::Copy(const QueueOnArray& obj) {
-  for (int i = 0; i < obj.size_; ++i) {
-    int j = obj.i_first_ + i;
-    if (j >= obj.size_) {
-      j -= obj.size_;
-    }
-    *(data_ + i) = *(obj.data_ + j);
+void QueueOnArray::Resize(const ptrdiff_t new_size) {
+  int* new_data(new int[new_size]);
+  ptrdiff_t size = RealSize();
+  for (ptrdiff_t i = 0; i < size; ++i) {
+    *(new_data + i) = *(data_ + (i + i_first_) % size_);
   }
+  delete[] data_;
+  data_ = new_data;
+  size_ = new_size;
+  i_first_ = 0;
+  i_last_ = size;
 }
 
 
 
-void QueueOnArray::Resize() {
-  int size = size_ * 2;
-  int* data = new int[size];
-  Copy();
+ptrdiff_t QueueOnArray::RealSize() const {
+  ptrdiff_t size = i_last_ - i_first_;
+  if (size < 0) {
+    size = size_ - size;
+  }
+  return size;
 }
+
 
 
 void QueueOnArray::Push(const int value) {
-  
+  if (0 == size_) {
+    Resize(1);
+  }
+  if ((i_last_ + 1) % size_ == i_first_) {
+    Resize(size_ * 2);
+  }
+  *(data_ + i_last_) = value;
+  i_last_ = (i_last_ + 1) % size_;
 }
 
 
 
-void QueueOnArray::Pop() {
-  --size_;
-  if (i_last_ > 0) {
-    --i_last_;
+void QueueOnArray::Pop() noexcept{
+  i_first_ = (i_first_ + 1) % size_;
+}
+
+
+
+int QueueOnArray::Top() const {
+  if (IsEmpty()) {
+    throw std::logic_error("Try to get top from empty queue.");
   }
-  else {
-    i_last_ = size_ - 1;
+  return *(data_ + i_first_);
+}
+
+
+
+bool QueueOnArray::IsEmpty() const noexcept {
+  return i_first_ == i_last_;
+}
+
+
+
+std::ostream& QueueOnArray::WriteTo(std::ostream& ostrm) const {
+  ostrm << '{';
+  for (ptrdiff_t i = 0; i < RealSize(); ++i) {
+    ostrm << *(data_ + (i_first_ + i) % size_);
+    if (i + 1 < RealSize()) {
+      ostrm << ", ";
+    }
   }
+  ostrm << '}';
+  return ostrm;
 }

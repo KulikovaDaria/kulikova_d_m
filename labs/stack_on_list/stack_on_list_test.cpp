@@ -5,7 +5,7 @@
 int main() {
   StackOnList st_def;
   std::cout << "Let's create default stack. Stack is " << st_def << std::endl;
-  std::cout << "Is def create empty -> " << st_def.IsEmpty() << std::endl;
+  std::cout << "Is def stack empty -> " << st_def.IsEmpty() << std::endl;
   try {
     std::cout << "Let's try to get top -> ";
     st_def.Top();
