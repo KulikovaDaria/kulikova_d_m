@@ -21,7 +21,7 @@ private:
     Node(const int k, const int v)
     :data(k, v) {
     }
-    Node(const int k, const int v, Node*& next) 
+    Node(const int k, const int v, Node*& next)
       :data(k, v), next(next) {
     }
     struct Pair {
@@ -33,13 +33,13 @@ private:
         val = obj.val;
         return *this;
       }
-      int key{0};
-      int val{0};
+      int key {0};
+      int val {0};
     };
-    Pair data{0, 0};
-    Node* next{nullptr};
+    Pair data {0, 0};
+    Node* next {nullptr};
   };
-  Node* data_{nullptr};
+  Node* data_ {nullptr};
 };
 
 inline std::ostream& operator<<(std::ostream& ostrm, const PriorityQueue& obj) {

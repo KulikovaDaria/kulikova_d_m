@@ -61,14 +61,12 @@ void PriorityQueue::Push(const int key, const int val) {
       while (nullptr != p->next && p->next->data.key >= key) {
         p = p->next;
       }
-      
+
       p->next = new Node(key, val, p->next);
-    }
-    else {
+    } else {
       data_ = new Node(key, val, data_);
     }
-  }
-  else {
+  } else {
     data_ = new Node(key, val);
   }
 }

@@ -11,7 +11,7 @@ int main() {
     std::cout << "Let's try to get top from def queue -> " << std::endl;
     q_def.Top();
   }
-  catch (const std::logic_error& except) {
+  catch(const std::logic_error& except) {
     std::cout << except.what() << std::endl;
   }
   std::cout << std::endl;
@@ -43,7 +43,7 @@ int main() {
   std::cout << "Let's push " << v2 << " with key " << v2 << "Queue3 is " << q3
       << std::endl;
   std::cout << std::endl;
-  
+
   std::cout << "Queue1 is " << q1 << std::endl;
   std::cout << "Queue2 is " << q2 << std::endl;
   std::cout << "Queue3 is " << q3 << std::endl;

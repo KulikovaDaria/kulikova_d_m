@@ -20,7 +20,7 @@ private:
   ptrdiff_t size_{0};
   ptrdiff_t i_first_{0};
   ptrdiff_t i_last_{0};
-  int* data_{nullptr};
+  int* data_ {nullptr};
 };
 
 inline std::ostream& operator<<(std::ostream& ostrm, const QueueOnArray& obj) {

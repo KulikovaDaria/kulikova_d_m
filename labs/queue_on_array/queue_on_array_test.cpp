@@ -11,7 +11,7 @@ int main() {
     std::cout << "Let's try to get top from def queue -> " << std::endl;
     q_def.Top();
   }
-  catch (const std::logic_error& except) {
+  catch(const std::logic_error& except) {
     std::cout << except.what() << std::endl;
   }
   std::cout << std::endl;

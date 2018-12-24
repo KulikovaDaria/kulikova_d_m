@@ -76,7 +76,7 @@ void QueueOnArray::Push(const int value) {
 
 
 
-void QueueOnArray::Pop() noexcept{
+void QueueOnArray::Pop() noexcept {
   i_first_ = (i_first_ + 1) % size_;
 }
 
