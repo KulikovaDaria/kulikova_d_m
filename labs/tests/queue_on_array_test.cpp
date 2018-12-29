@@ -1,4 +1,4 @@
-#include "queue_on_array.h"
+#include <queue_on_array/queue_on_array.h>
 #include <iostream>
 #include <sstream>
 #include <exception>

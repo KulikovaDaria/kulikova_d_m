@@ -1,4 +1,4 @@
-#include "dynamic_array_t.h"
+#include <dynamic_array_t/dynamic_array_t.h>
 #include <exception>
 #include <iostream>
 #include <sstream>

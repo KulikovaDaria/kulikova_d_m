@@ -1,2 +1,23 @@
 add_executable(complex_test complex_test.cpp)
 target_link_libraries(complex_test complex)
+
+add_executable(dynamic_array_t_test dynamic_array_t_test.cpp)
+target_link_libraries(dynamic_array_t_test dynamic_array_t)
+
+add_executable(dynamic_array_test dynamic_array_test.cpp)
+target_link_libraries(dynamic_array_test dynamic_array)
+
+add_executable(matrix_ana_test matrix_ana_test.cpp)
+target_link_libraries(matrix_ana_test matrix_ana)
+
+add_executable(priority_queue_test priority_queue_test.cpp)
+target_link_libraries(priority_queue_test priority_queue)
+
+add_executable(queue_on_array_test queue_on_array_test.cpp)
+target_link_libraries(queue_on_array_test queue_on_array)
+
+add_executable(rational_test rational_test.cpp)
+target_link_libraries(rational_test rational)
+
+add_executable(stack_on_list_test stack_on_list_test.cpp)
+target_link_libraries(stack_on_list_test stack_on_list)
