@@ -50,8 +50,9 @@ int main() {
   std::cout << std::endl;
 
   StackOnList st3;
+  std::cout << "Stack3 is " << st3 << std::endl;
   st3 = st1;
-  std::cout << "Let's create stack3 = stack1. Stack3 is " << st3 << std::endl;
+  std::cout << "Let's do stack3 = stack1. Stack3 is " << st3 << std::endl;
   std::cout << "Is stack3 empty -> " << st3.IsEmpty() << std::endl;
   std::cout << "Top value of stack3 is " << st3.Top() << std::endl;
   std::cout << "Let's pop" << std::endl;

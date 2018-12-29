@@ -20,7 +20,7 @@ int main() {
   int v1(1);
   int v2(5);
   int v3(2);
-  std::cout << "let's push " << v1 << ", " << v2 << ", " << v3 << std::endl;
+  std::cout << "Let's push " << v1 << ", " << v2 << ", " << v3 << std::endl;
   q1.Push(v1);
   q1.Push(v2);
   q1.Push(v3);
@@ -36,8 +36,10 @@ int main() {
   std::cout << "Top value is " << q2.Top() << std::endl;
   std::cout << std::endl;
 
-  QueueOnArray q3 = q1;
-  std::cout << "Let's create queue3 = queue1. Queue3 is " << q3 << std::endl;
+  QueueOnArray q3;
+  std::cout << "Queue3 is " << q3 << std::endl;
+  q3 = q1;
+  std::cout << "Let's do queue3 = queue1. Queue3 is " << q3 << std::endl;
   q3.Push(v2);
   std::cout << "Let's push " << v2 << " Queue3 is " << q3
     << std::endl;

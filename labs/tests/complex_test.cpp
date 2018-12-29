@@ -15,8 +15,10 @@ int main() {
   Complex c(b);
   std::cout << "Let's create copy of complex number2. Complex number3 is "
             << c << std::endl;
-  Complex d = b;
-  std::cout << "Let's create complex number4 = number2. Complex number4 is "
+  Complex d;
+  std::cout << "Complex number4 is " << d << std::endl;
+  d = b;
+  std::cout << "Let's do complex number4 = number2. Complex number4 is "
             << d << std::endl;
   std::cout << std::endl;
 

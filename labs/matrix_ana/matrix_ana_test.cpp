@@ -45,8 +45,9 @@ int main() {
   std::cout << "RowSize is " << a2.RowSize() << std::endl;
   std::cout << "ColumnSize is " << a2.ColumnSize() << std::endl;
   MatrixAnA a3;
+  std::cout << "Matrix3 is " << a3 << std::endl;
   a3 = a1;
-  std::cout << "Let's create matrix3 = matrix1. Matrix3 is " << a1 << std::endl;
+  std::cout << "Let's do matrix3 = matrix1. Matrix3 is " << a3 << std::endl;
   std::cout << std::endl;
 
   a2.Resize(2, 3);

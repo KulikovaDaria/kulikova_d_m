@@ -37,8 +37,10 @@ int main() {
   std::cout << "Top value is " << q2.Top() << std::endl;
   std::cout << std::endl;
 
-  PriorityQueue q3 = q1;
-  std::cout << "Let's create queue3 = queue1. Queue3 is " << q3 << std::endl;
+  PriorityQueue q3;
+  std::cout << "Queue3 is " << q3 << std::endl;
+  q3 = q1;
+  std::cout << "Let's do queue3 = queue1. Queue3 is " << q3 << std::endl;
   q3.Push(v2, v2);
   std::cout << "Let's push " << v2 << " with key " << v2 << "Queue3 is " << q3
       << std::endl;

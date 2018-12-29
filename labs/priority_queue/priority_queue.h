@@ -14,12 +14,11 @@ public:
   bool IsEmpty() const noexcept;
   std::ostream& WriteTo(std::ostream& ostrm) const;
 
-
 private:
   struct Node {
     Node() = default;
     Node(const int k, const int v)
-    :data(k, v) {
+      :data(k, v) {
     }
     Node(const int k, const int v, Node*& next)
       :data(k, v), next(next) {

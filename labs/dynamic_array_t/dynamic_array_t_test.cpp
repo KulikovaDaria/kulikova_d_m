@@ -46,8 +46,9 @@ void Test(const DynamicArrayT<T>& val) {
   std::cout << std::endl;
 
   DynamicArrayT<T> a3;
+  std::cout << "Array3 is "<<a3 << std::endl;
   a3 = a1;
-  std::cout << "Let's create array3 = array1. Array3 is " << a3 << std::endl;
+  std::cout << "Let's do array3 = array1. Array3 is " << a3 << std::endl;
   std::cout << "Size is " << a3.Size() << std::endl;
   a3.Resize(2);
   std::cout << "Let's do Resize(2) to array3. Array3 is " << a3 << std::endl;

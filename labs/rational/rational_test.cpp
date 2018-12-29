@@ -24,8 +24,10 @@ int main() {
   Rational c(b);
   std::cout << "Let's create copy of rational number2. Rational number3 is "
     << c << std::endl;
-  Rational d = b;
-  std::cout << "Let's create rational number4 = number2. Rational number4 is "
+  Rational d;
+  std::cout << "Rational number4 is " << d << std::endl;
+  d = b;
+  std::cout << "Let's do rational number4 = number2. Rational number4 is "
     << d << std::endl;
   std::cout << std::endl;
 
