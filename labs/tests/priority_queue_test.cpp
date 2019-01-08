@@ -17,9 +17,9 @@ int main() {
   std::cout << std::endl;
 
   PriorityQueue q1;
-  int v1(1);
+  int v1(2);
   int v2(5);
-  int v3(2);
+  int v3(1);
   std::cout << "let's push " << v1 << " with key " << v1 << ", " << v2
       << " with key " << v2 << ", " << v3 << " with key " << v3 << std::endl;
   q1.Push(v1, v1);
