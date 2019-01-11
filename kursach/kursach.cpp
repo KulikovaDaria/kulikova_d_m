@@ -1,6 +1,7 @@
 #include <exception>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <set>
 #include <sstream>
 #include <string>
 
@@ -22,15 +23,6 @@ cv::Mat ReadImage(const std::string name) {
   }
   return image;
 }
-
-//int CountOfUniquePairs(const cv::FileNode& roads, const cv::FileNode& cars) {
-//  int n_cars = cars.size();
-//  int n_roads = 0;
-//  for (int i = 0; i < roads.size(); ++i) {
-//    n_roads += roads[i]["mask"].size();
-//  }
-//  return n_cars * n_roads;
-//}
 
 bool IsWhite(const cv::Mat mask,  int i, const int j) {
   return (255 == mask.at<cv::Vec3b>(i, j)[0]
@@ -82,10 +74,20 @@ std::pair<int, int> WidthOfMask(const cv::Mat mask) {
       }
     }
   }
+  //for (int i = mask.rows - 1; i > 0 && width.first == -1; --i) {
+  //  for (int j = 0; j < mask.cols; ++j) {
+  //    if (IsWhite(mask, i, j)) {
+  //      width.second = j;
+  //      if (-1 == width.first) {
+  //        width.first = j;
+  //      }
+  //    }
+  //  }
+  //}
   return width;
 }
 
-void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road, cv::Mat road_mask) {
+void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road, cv::Mat road_mask, int i_out_image) {
   std::pair<int, int> height_of_road = HeightOfMask(road_mask);
   int random_height = RandomNumber(height_of_road);
   std::pair<int, int> width_of_road = WidthOfMask(road_mask, random_height);
@@ -93,13 +95,17 @@ void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road, cv::Mat road_mas
   // Convert Mat to float data type
   car.convertTo(car, CV_32FC3);
   road.convertTo(road, CV_32FC3);
-  // Normalize the alpha mask to keep intensity between 0 and 1
+  // Normalize the alpha mask to keep intensity between 0 and 1 
   car_mask.convertTo(car_mask, CV_32FC3, 1.0 / 255);
-  int coeff = (width_of_car.second - width_of_car.first) * 100
-      / ((width_of_road.second - width_of_road.first) 
-      * RandomNumber(std::make_pair(40, 50)));
-  resize(car, car, car.size()/coeff);
-  resize(car_mask, car_mask, car_mask.size() / coeff);
+
+  int r = RandomNumber(std::make_pair(40, 50));
+  //std::cout << r << std::endl;
+  double coeff = (width_of_car.second - width_of_car.first) * 100.0
+    / ((width_of_road.second - width_of_road.first)
+      * r);
+  cv::Size new_size(car.cols / coeff + 0.5, car.rows / coeff + 0.5);
+  resize(car, car, new_size);
+  resize(car_mask, car_mask, new_size);
   multiply(car_mask, car, car);
   std::pair<int, int> coordinates_of_car = std::make_pair(random_height 
       - car.rows, (width_of_road.first + width_of_road.second - car.cols) / 2);
@@ -111,8 +117,13 @@ void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road, cv::Mat road_mas
   cv::Mat out_image = road;
   roi_of_car.copyTo(out_image(rect_of_car));
 
-  imshow("d", out_image / 255);
-  cv::waitKey();
+  //imshow("d", out_image / 255);
+  //cv::waitKey();
+  std::string path = "../result/";
+  std::string name = std::to_string(i_out_image);
+  std::string type = ".png";
+  std::string filename = path + name + type;
+  cv::imwrite(filename, out_image);
 }
 
 int main() {
@@ -130,31 +141,39 @@ int main() {
     std::cout << exception.what() << std::endl;
     return 0;
   }
-
-  AlphaBlending(imread(cars[1]["image"]), imread(cars[1]["mask"]),
-      imread(roads[0]["image"]), imread(roads[0]["mask"][0]));
-
-  //int n_unique_pair = CountOfUniquePairs(roads, cars);
-  //int n_image_for_pair = n_image / n_unique_pair + 1;
-  //int n_pair_for_one_more = n_image % n_unique_pair;
-  //int n_image_cur = 0;
-  
-  //try {
-  //  for (int i_road = 0; i_road < roads.size() && n_image_cur < n_image; ++i_road) {
-  //    cv::Mat road = ReadImage(roads[i_road]["image"]);
-  //    for (int i_mask = 0; i_mask < roads[i_road]["mask"].size() && n_image_cur < n_image; ++i_mask) {
-  //      cv::Mat road_mask = ReadImage(roads[i_road]["mask"][i_mask]);
-  //      for (int i_car = 0; i_car < cars.size() && n_image_cur < n_image; ++i_car) {
-  //        cv::Mat car = ReadImage(cars[i_car]["image"]);
-  //        cv::Mat car_mask = cv::imread(cars[i_car]["mask"]);
-  //        ChoosePlaceForCar(road_mask);
-  //      }
-  //    }
-  //  }
-  //}
-  //catch(const std::logic_error& exception) {
-  //  std::cout << exception.what() << std::endl;
-  //}
+ 
+  int n_image_cur = 0;
+  std::set<std::string> not_found_images;
+  for (int i_car = 0; n_image_cur < n_image; i_car = ++i_car % cars.size()) {
+    try {
+      cv::Mat car = ReadImage(cars[i_car]["image"]);
+      cv::Mat car_mask = cv::imread(cars[i_car]["mask"]);
+      for (int i_road = 0; i_road < roads.size(); ++i_road) {
+        try {
+          cv::Mat road = ReadImage(roads[i_road]["image"]);
+          for (int i_mask = 0; i_mask < roads[i_road]["mask"].size(); ++i_mask) {
+            try {
+              cv::Mat road_mask = ReadImage(roads[i_road]["mask"][i_mask]);
+              AlphaBlending(car, car_mask, road, road_mask, n_image_cur);
+              ++n_image_cur;
+            }
+            catch (std::logic_error& except) {
+              throw;
+            }
+          }
+        }
+        catch (std::logic_error& except) {
+          throw;
+        }
+      }
+    }
+    catch(std::logic_error& except) {
+      not_found_images.insert(except.what());
+    }
+  }
+  for (auto itr = not_found_images.begin(); itr != not_found_images.end(); ++itr) {
+    std::cout << *itr << std::endl;
+  }
 
   return 0;
 }
