@@ -4,6 +4,11 @@
 #include <set>
 #include <sstream>
 #include <string>
+//#include <opencv2/core/utility.hpp>
+
+void ProcessingCmdOptions(const int argc, const char* argv[]) {
+
+}
 
 // Считывает данные из файла типа json. В случае если файл пуст или не найден,
 // выбрасывает исключение
@@ -119,7 +124,7 @@ std::pair<int, int> WidthOfMask(const cv::Mat mask, const int row) {
 
 // “Вклеивает” изображения автомобиля на дорогу
 void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road,
-    cv::Mat road_mask, const int i_out_image) {
+    cv::Mat road_mask, const int i_out_image, const std::string path_to_result) {
   // Определение "высоты" дороги для вклеивания автомобиля
   std::pair<int, int> height_of_road = HeightOfMask(road_mask);
   int random_height = RandomNumber(height_of_road);
@@ -149,21 +154,24 @@ void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road,
   cv::Mat out_image = road;
   roi_of_car.copyTo(out_image(rect_of_car));
   // Сохранение полученного изображения
-  std::string path = "result/";
   std::string name = std::to_string(i_out_image);
   std::string type = ".png";
-  std::string filename = path + name + type;
+  std::string filename = path_to_result + name + type;
   cv::imwrite(filename, out_image);
 }
 
 
 
-int main() {
-  std::cout << "How many images do you want to get?" << std::endl;
-  int n_image;
-  std::cin >> n_image;
+int main(int argc, char* argv[]) {
+  const std::string keys =
+    "{j|dataset.json|}"
+    "{r|result/|}"
+    "{n||}";
+  cv::CommandLineParser parser(argc, argv, keys);
+  std::cout << 33 << std::endl;
+  std::cout << parser.get<std::string>("j") << std::endl;
   // Считывание данных из json файла
-  cv::FileStorage dataset("dataset.json", 0);
+  cv::FileStorage dataset(parser.get<std::string>("j"), 0);
   cv::FileNode roads;
   cv::FileNode cars;
   try {
@@ -174,7 +182,19 @@ int main() {
     std::cout << exception.what() << std::endl;
     return 0;
   }
-
+  int n_image(0);
+  // Если количество итоговых изображений не указано явно, считаем его как
+  // количество уникальных пар  "автомобиль - маска дороги"
+  if (parser.has("n")) {
+    n_image = parser.get<int>("n");
+  }
+  else {
+    for (int i_road = 0; i_road < roads.size(); ++i_road) {
+      n_image += roads[i_road]["mask"].size();
+    }
+    n_image *= cars.size();
+  }
+  std::string path_to_result = parser.get<std::string>("r");
   // Количество сгенерированных изоражений на данный момент
   int n_image_cur = 0;
   // Множество для хранения путей к файлам, которые не были найдены, 
@@ -211,7 +231,7 @@ int main() {
               std::string path_to_road_mask = roads[i_road]["mask"][i_mask];
               cv::Mat road_mask = ReadImage(path_to_road_mask);
               CheckMask(road, road_mask, path_to_road, path_to_road_mask);
-              AlphaBlending(car, car_mask, road, road_mask, n_image_cur);
+              AlphaBlending(car, car_mask, road, road_mask, n_image_cur, path_to_result);
               ++n_image_cur;
             }
             // Обработка некорректных изображений
