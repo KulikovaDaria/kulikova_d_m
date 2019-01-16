@@ -4,11 +4,6 @@
 #include <set>
 #include <sstream>
 #include <string>
-//#include <opencv2/core/utility.hpp>
-
-void ProcessingCmdOptions(const int argc, const char* argv[]) {
-
-}
 
 // Считывает данные из файла типа json. В случае если файл пуст или не найден,
 // выбрасывает исключение
@@ -156,7 +151,7 @@ void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road,
   // Сохранение полученного изображения
   std::string name = std::to_string(i_out_image);
   std::string type = ".png";
-  std::string filename = path_to_result + name + type;
+  std::string filename = path_to_result + '/' + name + type;
   cv::imwrite(filename, out_image);
 }
 
@@ -165,11 +160,9 @@ void AlphaBlending(cv::Mat car, cv::Mat car_mask, cv::Mat road,
 int main(int argc, char* argv[]) {
   const std::string keys =
     "{j|dataset.json|}"
-    "{r|result/|}"
+    "{r|result|}"
     "{n||}";
   cv::CommandLineParser parser(argc, argv, keys);
-  std::cout << 33 << std::endl;
-  std::cout << parser.get<std::string>("j") << std::endl;
   // Считывание данных из json файла
   cv::FileStorage dataset(parser.get<std::string>("j"), 0);
   cv::FileNode roads;

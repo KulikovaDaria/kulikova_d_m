@@ -18,8 +18,6 @@
       "image": "D:\\Daria\\kulikova_d_m\\dataset\\r13.jpg",
       "mask": [
         "D:\\Daria\\kulikova_d_m\\dataset\\r13_m.png",
-        "D:\\Daria\\kulikova_d_m\\dataset\\c1.txt",
-        "D:\\Daria\\kulikova_d_m\\dataset\\c4_m.png"
       ]
     },
     {
@@ -27,12 +25,6 @@
       "mask": [
         "D:\\Daria\\kulikova_d_m\\dataset\\r12_m.png",
         "D:\\Daria\\kulikova_d_m\\dataset\\r12_m3.png"
-      ]
-    },
-    {
-      "image": "D:\\Daria\\kulikova_d_m\\dataset\\r100.jpg",
-      "mask": [
-        "D:\\Daria\\kulikova_d_m\\dataset\\r13_m.png"
       ]
     },
     {
