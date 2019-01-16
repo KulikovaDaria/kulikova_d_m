@@ -49,6 +49,16 @@ void CheckMask(const cv::Mat& image, const cv::Mat mask,
 
 
 
+int CountUniquePairs(cv::FileNode cars, cv::FileNode roads) {
+  int n_image(0);
+  for (int i_road = 0; i_road < roads.size(); ++i_road) {
+    n_image += roads[i_road]["mask"].size();
+  }
+  n_image *= cars.size();
+  return n_image;
+}
+
+
 // Проверяет, является ли пиксель белым
 bool IsWhite(const cv::Mat mask, const int i, const int j) {
   return (255 == mask.at<cv::Vec3b>(i, j)[0]
@@ -182,10 +192,7 @@ int main(int argc, char* argv[]) {
     n_image = parser.get<int>("n");
   }
   else {
-    for (int i_road = 0; i_road < roads.size(); ++i_road) {
-      n_image += roads[i_road]["mask"].size();
-    }
-    n_image *= cars.size();
+    n_image = CountUniquePairs(cars, roads);
   }
   std::string path_to_result = parser.get<std::string>("r");
   // Количество сгенерированных изоражений на данный момент
