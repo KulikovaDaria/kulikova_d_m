@@ -49,6 +49,7 @@ void CheckMask(const cv::Mat& image, const cv::Mat mask,
 
 
 
+// —читает количество уникальных пар "автомобиль - маска дороги"
 int CountUniquePairs(cv::FileNode cars, cv::FileNode roads) {
   int n_image(0);
   for (int i_road = 0; i_road < roads.size(); ++i_road) {
@@ -57,6 +58,7 @@ int CountUniquePairs(cv::FileNode cars, cv::FileNode roads) {
   n_image *= cars.size();
   return n_image;
 }
+
 
 
 // ѕровер€ет, €вл€етс€ ли пиксель белым
