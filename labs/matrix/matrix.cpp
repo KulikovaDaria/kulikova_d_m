@@ -1,9 +1,9 @@
-#include "matrix_ana.h"
+#include "matrix.h"
 #include <exception>
 #include <iostream>
 #include <sstream>
 
-MatrixAnA::MatrixAnA(const ptrdiff_t i_size, const ptrdiff_t j_size)
+Matrix::Matrix(const ptrdiff_t i_size, const ptrdiff_t j_size)
   : i_size_(i_size), j_size_(j_size), i_capacity_(i_size),
       j_capacity_(j_size) {
   if (i_size < 0 || j_size < 0) {
@@ -17,7 +17,7 @@ MatrixAnA::MatrixAnA(const ptrdiff_t i_size, const ptrdiff_t j_size)
 
 
 
-MatrixAnA::MatrixAnA(const MatrixAnA& obj)
+Matrix::Matrix(const Matrix& obj)
   : i_size_(obj.i_size_), j_size_(obj.j_size_), i_capacity_(obj.i_size_),
       j_capacity_(obj.j_size_), data_(new int[obj.i_size_ * obj.j_size_]) {
   Copy(obj, data_, j_capacity_);
@@ -25,14 +25,14 @@ MatrixAnA::MatrixAnA(const MatrixAnA& obj)
 
 
 
-MatrixAnA::~MatrixAnA() noexcept {
+Matrix::~Matrix() noexcept {
   delete[] data_;
   data_ = nullptr;
 }
 
 
 
-MatrixAnA& MatrixAnA::operator=(const MatrixAnA& obj) {
+Matrix& Matrix::operator=(const Matrix& obj) {
   if (this != &obj) {
     if (i_capacity_ < obj.i_size_ || j_capacity_ < obj.j_size_) {
       Resize(obj.i_size_, obj.j_size_);
@@ -46,7 +46,7 @@ MatrixAnA& MatrixAnA::operator=(const MatrixAnA& obj) {
 
 
 
-bool MatrixAnA::operator==(const MatrixAnA& obj) const {
+bool Matrix::operator==(const Matrix& obj) const {
   if (this == &obj) {
     return true;
   }
@@ -67,13 +67,13 @@ bool MatrixAnA::operator==(const MatrixAnA& obj) const {
 
 
 
-bool MatrixAnA::operator!=(const MatrixAnA& obj) const {
+bool Matrix::operator!=(const Matrix& obj) const {
   return !operator==(obj);
 }
 
 
 
-int& MatrixAnA::Element(const ptrdiff_t i, const ptrdiff_t j) {
+int& Matrix::Element(const ptrdiff_t i, const ptrdiff_t j) {
   if ((i < 0) || (j < 0) || (i >= i_size_) || (j >= j_size_)) {
     throw std::out_of_range("Invalid index");
   }
@@ -82,19 +82,19 @@ int& MatrixAnA::Element(const ptrdiff_t i, const ptrdiff_t j) {
 
 
 
-ptrdiff_t MatrixAnA::RowSize() const noexcept {
+ptrdiff_t Matrix::RowSize() const noexcept {
   return i_size_;
 }
 
 
 
-ptrdiff_t MatrixAnA::ColumnSize() const noexcept {
+ptrdiff_t Matrix::ColumnSize() const noexcept {
   return j_size_;
 }
 
 
 
-void MatrixAnA::Resize(const ptrdiff_t i_new, const ptrdiff_t j_new) {
+void Matrix::Resize(const ptrdiff_t i_new, const ptrdiff_t j_new) {
   if (i_new < 0 || j_new < 0) {
     throw std::length_error("Size cant't be < 0");
   }
@@ -117,7 +117,7 @@ void MatrixAnA::Resize(const ptrdiff_t i_new, const ptrdiff_t j_new) {
 
 
 
-void MatrixAnA::Reserve(const ptrdiff_t i_new, const ptrdiff_t j_new) {
+void Matrix::Reserve(const ptrdiff_t i_new, const ptrdiff_t j_new) {
   if (i_new < 0 || j_new < 0) {
     throw std::length_error("Size cant't be < 0");
   }
@@ -141,7 +141,7 @@ void MatrixAnA::Reserve(const ptrdiff_t i_new, const ptrdiff_t j_new) {
 
 
 
-void MatrixAnA::Copy(const MatrixAnA& from, int* const data,
+void Matrix::Copy(const Matrix& from, int* const data,
     const ptrdiff_t j_cap) {
   for (ptrdiff_t i = 0; i < from.i_size_; ++i) {
     for (ptrdiff_t j = 0; j < from.j_size_; ++j) {
@@ -152,7 +152,7 @@ void MatrixAnA::Copy(const MatrixAnA& from, int* const data,
 
 
 
-std::ostream& MatrixAnA::WriteTo(std::ostream& ostrm) const {
+std::ostream& Matrix::WriteTo(std::ostream& ostrm) const {
   ostrm << '{';
   for (ptrdiff_t i = 0; i < i_size_; ++i) {
     ostrm << '{';

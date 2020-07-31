@@ -1,20 +1,20 @@
-#include <matrix_ana/matrix_ana.h>
+#include <matrix/matrix.h>
 #include <exception>
 #include <iostream>
 #include <sstream>
 
 int main() {
-  MatrixAnA a_def;
+  Matrix a_def;
   std::cout << "Let's create default matrix. Matrix is " << a_def << std::endl;
   std::cout << "Let's try to create array0 where row_size = -2. -> "
       << std::endl;
   try {
-    MatrixAnA a0(-2, 3);
+    Matrix a0(-2, 3);
   }
   catch(const std::length_error& exp) {
     std::cout << exp.what() << std::endl;
   }
-  MatrixAnA a1(2, 3);
+  Matrix a1(2, 3);
   std::cout << "Let's create matix1 2x3. Matrix1 is " << a1
     << std::endl;
   int val1(1);
@@ -35,7 +35,7 @@ int main() {
   }
   std::cout << std::endl;
 
-  MatrixAnA a2(a1);
+  Matrix a2(a1);
   std::cout << "Let's create copy of matrix1. Matrix2 is " << a2 << std::endl;
   std::cout << "RowSize is " << a2.RowSize() << std::endl;
   std::cout << "ColumnSize is " << a2.ColumnSize() << std::endl;
@@ -44,7 +44,7 @@ int main() {
       << std::endl;
   std::cout << "RowSize is " << a2.RowSize() << std::endl;
   std::cout << "ColumnSize is " << a2.ColumnSize() << std::endl;
-  MatrixAnA a3;
+  Matrix a3;
   std::cout << "Matrix3 is " << a3 << std::endl;
   a3 = a1;
   std::cout << "Let's do matrix3 = matrix1. Matrix3 is " << a3 << std::endl;

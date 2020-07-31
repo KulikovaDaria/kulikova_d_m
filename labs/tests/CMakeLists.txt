@@ -1,14 +1,14 @@
 add_executable(complex_test complex_test.cpp)
 target_link_libraries(complex_test complex)
 
-add_executable(dynamic_array_t_test dynamic_array_t_test.cpp)
-target_link_libraries(dynamic_array_t_test dynamic_array_t)
-
 add_executable(dynamic_array_test dynamic_array_test.cpp)
 target_link_libraries(dynamic_array_test dynamic_array)
 
-add_executable(matrix_ana_test matrix_ana_test.cpp)
-target_link_libraries(matrix_ana_test matrix_ana)
+add_executable(dynamic_array_t_test dynamic_array_t_test.cpp)
+target_link_libraries(dynamic_array_t_test dynamic_array_t)
+
+add_executable(matrix_test matrix_test.cpp)
+target_link_libraries(matrix_test matrix)
 
 add_executable(priority_queue_test priority_queue_test.cpp)
 target_link_libraries(priority_queue_test priority_queue)
